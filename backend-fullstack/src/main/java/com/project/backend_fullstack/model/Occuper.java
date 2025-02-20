@@ -1,6 +1,9 @@
 package com.project.backend_fullstack.model;
 
 import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,14 +18,18 @@ public class Occuper {
 	@GeneratedValue
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "codeProf", referencedColumnName = "codeProf", insertable = false, updatable = false)
-	private Prof prof;
+	   private String codeProf;
+	    private String codesal;
+
+	    @ManyToOne
+	    @JoinColumn(name = "codeProf", referencedColumnName = "codeProf", insertable = false, updatable = false)
+	    private Prof prof; // Relation avec Prof
+
+	    @ManyToOne
+	    @JoinColumn(name = "codesal", referencedColumnName = "codesal", insertable = false, updatable = false)
+	    private Salle salle; // Relation avec Salle
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "codesal", referencedColumnName = "codesal", insertable = false, updatable = false)
-	private Salle salle;
-	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date date;
 
 	public Long getId() {
@@ -55,6 +62,22 @@ public class Occuper {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getCodeProf() {
+		return codeProf;
+	}
+
+	public void setCodeProf(String codeProf) {
+		this.codeProf = codeProf;
+	}
+
+	public String getCodesal() {
+		return codesal;
+	}
+
+	public void setCodesal(String codesal) {
+		this.codesal = codesal;
 	}
 
 	
