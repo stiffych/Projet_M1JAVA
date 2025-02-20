@@ -2,6 +2,7 @@ package com.project.backend_fullstack.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
@@ -23,11 +24,13 @@ public class Occuper {
 
 	    @ManyToOne
 	    @JoinColumn(name = "codeProf", referencedColumnName = "codeProf", insertable = false, updatable = false)
-	    private Prof prof; // Relation avec Prof
+	    @JsonBackReference("prof-occuper")
+	    private Prof prof; 
 
 	    @ManyToOne
 	    @JoinColumn(name = "codesal", referencedColumnName = "codesal", insertable = false, updatable = false)
-	    private Salle salle; // Relation avec Salle
+	    @JsonBackReference("salle-occuper")
+	    private Salle salle; 
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date date;

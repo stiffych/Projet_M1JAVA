@@ -9,7 +9,9 @@ function SideBare() {
       <a href="/salle">
         <h1 className="text-xl font-semibold mb-4">Salle</h1>
       </a>
-      <h1 className="text-xl font-semibold mb-4">Occuper</h1>
+      <a href="/occuper">
+        <h1 className="text-xl font-semibold mb-4">Occuper</h1>
+      </a>
     </div>
   );
 }

@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.backend_fullstack.exception.RessourceNotfoundException;
 import com.project.backend_fullstack.model.Prof;
 import com.project.backend_fullstack.repository.ProfRepository;
+import com.project.backend_fullstack.service.ProfService;
 
 @RestController
 public class ProfController { 
@@ -21,6 +23,7 @@ public class ProfController {
 	
 	@Autowired
 	private ProfRepository profRepository;
+	private ProfService profService;
 	
 	@PostMapping("/prof")
 	Prof newProf (@RequestBody Prof newProf) {
@@ -53,6 +56,10 @@ public class ProfController {
 		}
 		profRepository.deleteById(id);
 		return "le prof avec l'id "+id+" a été supprimé";
+	}
+	@GetMapping("/cherchProf")
+	public List<Prof> searchProfs(@RequestParam String keyword) {
+	    return profService.searchProfs(keyword);
 	}
 
 	
