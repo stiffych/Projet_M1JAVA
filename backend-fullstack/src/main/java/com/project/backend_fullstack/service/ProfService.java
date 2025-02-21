@@ -10,6 +10,7 @@ import com.project.backend_fullstack.repository.ProfRepository;
 
 @Service
 public class ProfService {
+	
 	 @Autowired
 	    private ProfRepository profRepository;
 

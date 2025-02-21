@@ -188,7 +188,7 @@ function Occuper() {
             name="codesal"
             value={formData.codesal}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4">
+            className="w-full px-3 py-2 border rounded p-2 mb-4">
             <option> ...</option>
             {salleData.map((salle) => (
               <option key={salle.id} value={salle.codesal}>
@@ -204,7 +204,7 @@ function Occuper() {
             name="codeProf"
             value={formData.codeProf}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4">
+            className="w-full px-3 py-2 border rounded p-2 mb-4">
             <option> ...</option>
             {profData.map((prof) => (
               <option key={prof.id} value={prof.codeProf}>
@@ -220,7 +220,7 @@ function Occuper() {
             name="date"
             value={formData.date}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4"
+            className="w-full px-3 py-2 border rounded p-2 mb-4"
             required
           />
 

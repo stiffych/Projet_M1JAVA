@@ -149,7 +149,7 @@ function Salle() {
             name="codesal"
             value={formData.codesal}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4"
+            className="w-full px-3 py-2 border rounded p-2 mb-4"
             required
           />
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -160,7 +160,7 @@ function Salle() {
             name="designation"
             value={formData.designation}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4"
+            className="w-full px-3 py-2 border rounded p-2 mb-4"
             required
           />
 

@@ -23,6 +23,7 @@ public class ProfController {
 	
 	@Autowired
 	private ProfRepository profRepository;
+	@Autowired
 	private ProfService profService;
 	
 	@PostMapping("/prof")

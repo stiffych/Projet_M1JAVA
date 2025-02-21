@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import axiosClient from "../api/axios-client";
 import Modal from "../components/common/Modal";
 import ProfCard from "../components/common/ProfCard";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-function Prof() {
+function Prof({}) {
   const [loading, setLoading] = useState(false);
   const [profData, setProfData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +18,20 @@ function Prof() {
   });
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [DeleteProf, setDeleteProf] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axiosClient.get(
+        `/cherchProf?keyword=${searchTerm}`
+      );
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la recherche :", error);
+    }
+  };
 
   // Récupérer les prof
   const getProf = () => {
@@ -24,7 +39,8 @@ function Prof() {
     axiosClient
       .get("/profs")
       .then(({ data }) => {
-        setProfData(data); // Mettre à jour les prof
+        setProfData(data);
+        setSearchResults(data); // Mettre à jour les prof
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des prof :", error);
@@ -112,19 +128,37 @@ function Prof() {
 
   return (
     <div className="p-6">
+      {/* <Header setSearchResults={setSearchResults} /> */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Professeurs</h1>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          Ajouter
-        </button>
+        <div className="flex items-center space-x-4 ml-auto">
+          <form onSubmit={handleSearch} className="flex items-center">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Rechercher un professeur"
+              className="p-2 m-1 border rounded"
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white p-2 flex items-center justify-center">
+              <MagnifyingGlassIcon className="h-5 w-5" />
+            </button>
+          </form>
+
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Ajouter
+          </button>
+        </div>
       </div>
       {loading ? (
         <p>Chargement...</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {profData.map((prof) => (
+          {searchResults.map((prof) => (
             <ProfCard
               key={prof.id}
               id={prof.id}
@@ -153,7 +187,7 @@ function Prof() {
             name="codeProf"
             value={formData.codeProf}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4"
+            className="w-full px-3 py-2 border rounded p-2 mb-4"
             required
           />
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -164,7 +198,7 @@ function Prof() {
             name="nom"
             value={formData.nom}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4"
+            className="w-full px-3 py-2 border rounded p-2 mb-4"
             required
           />
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -175,7 +209,7 @@ function Prof() {
             name="prenom"
             value={formData.prenom}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4"
+            className="w-full px-3 py-2 border rounded p-2 mb-4"
             required
           />
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -186,7 +220,7 @@ function Prof() {
             name="grade"
             value={formData.grade}
             onChange={handleChange}
-            className="w-full border rounded p-2 mb-4"
+            className="w-full px-3 py-2 border rounded p-2 mb-4"
             required
           />
 
